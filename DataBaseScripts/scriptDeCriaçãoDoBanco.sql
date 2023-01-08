@@ -1,0 +1,7 @@
+CREATE TABLE fase (
+	id INTEGER AUTO_INCREMENT,
+	nome VARCHAR(50),
+	
+	CONSTRAINT pk_fase PRIMARY KEY (id)
+);
+
