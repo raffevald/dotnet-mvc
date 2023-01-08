@@ -30,6 +30,7 @@ public class ApontamentoRepository : IApontamentoRepository {
       conn.ConnectionString = ConnectionString;
       conn.Open();
       var dados =  conn.Execute(selectQuery);
+      
     } catch {
       throw new NotImplementedException();
     }

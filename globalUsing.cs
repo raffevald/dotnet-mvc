@@ -7,3 +7,7 @@
   global using Microsoft.AspNetCore.Mvc;
   global using dotnet_mvc.Models;
 
+// Para injeção de dependencias
+  global using dotnet_mvc.Repository;
+  global using dotnet_mvc.Repository.Interfaces;
+

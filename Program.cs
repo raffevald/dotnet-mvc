@@ -1,9 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+// Injeção de dependecias
+    builder.Services.AddScoped<IApontamentoRepository, ApontamentoRepository>();
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,7 +1,37 @@
 CREATE TABLE fase (
-	id INTEGER AUTO_INCREMENT,
-	nome VARCHAR(50),
+	id INTEGER AUTO_INCREMENT NOT NULL,
+	nome VARCHAR(50)  NOT NULL,
 	
 	CONSTRAINT pk_fase PRIMARY KEY (id)
 );
 
+CREATE TABLE Stream (
+	id INTEGER AUTO_INCREMENT  NOT NULL,
+	nome VARCHAR(50)  NOT NULL,
+	
+	CONSTRAINT pk_Stream PRIMARY KEY (id)
+);
+
+CREATE TABLE Atividades (
+	id INTEGER AUTO_INCREMENT  NOT NULL,
+	nome VARCHAR(50)  NOT NULL,
+	
+	CONSTRAINT pk_Atividades PRIMARY KEY (id)
+);
+
+CREATE TABLE Apontamentos (
+	id INTEGER AUTO_INCREMENT  NOT NULL,
+	data_atividade DATE NOT NULL,
+	horasTrabalhada INTEGER NOT NULL,
+	observacao VARCHAR(150),
+
+	atividades INTEGER NOT NULL,
+	stream INTEGER NOT NULL,
+	fase INTEGER NOT NULL,
+	
+	CONSTRAINT pk_Atividades PRIMARY KEY (id),
+
+	FOREIGN KEY (atividades) REFERENCES atividades(id),
+	FOREIGN KEY (stream) REFERENCES stream(id),
+	FOREIGN KEY (fase) REFERENCES fase(id)
+);
