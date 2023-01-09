@@ -1,0 +1,48 @@
+@model dotnet_mvc.Models.Apontamento
+
+@{
+  ViewData["Title"] = "Apontamentos";
+}
+
+@* <form action="/pagina-processa-dados-do-form" method="post">
+    <div>
+        <label for="nome">Data: </label>
+        <input type="text" id="nome" />
+    </div>
+    <div>
+        <label for="msg">Observacao:</label>
+        <textarea id="msg"></textarea>
+    </div>
+</form> *@
+
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Data</label>
+    <input type="date" class="form-control" >
+    <small id="emailHelp" class="form-text text-muted">Coloque a data do apontamento</small>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleInputPassword1">Observacao</label>
+    <input class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <br />
+  
+  <div class="form-group">
+    <label for="exampleInputPassword1">Selecione a fase</label>
+    <select class="form-control">
+      <option>Default select</option>
+    </select>
+  </div>
+
+
+  @* <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div> *@
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -15,22 +15,15 @@ public class ApontamentoRepository : IApontamentoRepository {
   string ConnectionString = "server=127.0.0.1:3306; uid=root;" + "pwd=root; database=dotnet-mvc";
 
 
-  public Task<IActionResult> ReadAllApontamento(Apontamento apontamento) {
-    // IDbConnetion Conn;
-    // NpgsqlConnection Conn;
-  
+  public Task<IActionResult> ReadAllApontamento( ) {
     try {
       string selectQuery = "SELECT * FROM fase;";
-      // Conn = new NpgsqlConnection(ConnectionString);
-      // Conn.Open();
-      // var dados = Conn.Execute(selectQuery, apontamento);
-      // return dados;
-
       conn = new MySql.Data.MySqlClient.MySqlConnection();
       conn.ConnectionString = ConnectionString;
       conn.Open();
+
       var dados =  conn.Execute(selectQuery);
-      
+      // var dados = conn.ExecuteReader(selectQuery);
     } catch {
       throw new NotImplementedException();
     }
