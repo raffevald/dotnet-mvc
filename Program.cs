@@ -4,12 +4,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Data base context for DB coneção
+    // builder.Services.AddScoped<Connection>();
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-    builder.Services.Dbconnection<dotnet_mvc.Data.DbContextAplication>(options => { 
+    builder.Services.AddDbContext<dotnet_mvc.Data.DbContextAplication>(options => { 
         options.UseNpgsql(builder.Configuration.GetConnectionString("Default")); });
-
+    
 // Injeção de dependecias
-    builder.Services.AddScoped<IApontamentoRepository, ApontamentoRepository>();
+    // builder.Services.AddScoped<IApontamentoRepository, ApontamentoRepository>();
+    builder.Services.AddScoped<IFaseRepository, FaseRepository>();
 
 var app = builder.Build();
 

@@ -2,17 +2,22 @@ namespace dotnet_mvc.Controllers;
 
 public class ApontamentoController : Controller {
   private readonly ILogger<ApontamentoController> _logger;
-  private readonly IApontamentoRepository _apotamentos;
+  // private readonly IApontamentoRepository _apotamentos;
+  private readonly IFaseRepository _fase;
   public ApontamentoController(
     ILogger<ApontamentoController> logger,
-    IApontamentoRepository apotamento
+    IFaseRepository fase
+    // IApontamentoRepository apotamento
   ) {
     _logger = logger;
-    _apotamentos = apotamento;
+    _fase = fase;
+    // _apotamentos = apotamento;
   }
 
   public IActionResult Index() {
-    var data = _apotamentos.ReadAllApontamento();
+    // var data = _apotamentos.ReadAllApontamento();
+    var fases = _fase.GetAllFases();
+
     return View();
   }
 

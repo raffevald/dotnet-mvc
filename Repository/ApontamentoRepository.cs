@@ -1,33 +1,33 @@
-using dotnet_mvc.Repository.Interfaces;
-using Dapper;
-
 namespace dotnet_mvc.Repository;
 
-public class ApontamentoRepository : IApontamentoRepository {
+public class ApontamentoRepository {
 
-  // private readonly Dbconnection _dBConnection;
-  // string ConnectionString = "Server=127.0.0.1; Port=7000; User Id=postgres; Password=Raff-Nami-2078; Database=dotnet-mvc;";
-  // public ApontamentoRepository(Dbconnection dBConnection) {
-  //   _dBConnection = dBConnection;
-  // }
+//   // private readonly Connection _dBConnection;
+//   // public ApontamentoRepository(Connection dBConnection) {
+//   //   _dBConnection = dBConnection;
+//   // }
 
-  MySql.Data.MySqlClient.MySqlConnection conn;
-  string ConnectionString = "server=127.0.0.1:3306; uid=root;" + "pwd=root; database=dotnet-mvc";
+//   public Task<IActionResult> ReadAllApontamento( ) {
+//     // SqlConnection conn = _dBConnection.Execultar();
+//     // Fase fase = new();
 
+//     try {
+//       // string selectQuery = "SELECT * FROM fase;";
 
-  public Task<IActionResult> ReadAllApontamento( ) {
-    try {
-      string selectQuery = "SELECT * FROM fase;";
-      conn = new MySql.Data.MySqlClient.MySqlConnection();
-      conn.ConnectionString = ConnectionString;
-      conn.Open();
+//       // SqlCommand command = new(selectQuery, conn);
+//       // SqlDataReader dataReader = command.ExecuteReader();
 
-      var dados =  conn.Execute(selectQuery);
-      // var dados = conn.ExecuteReader(selectQuery);
-    } catch {
-      throw new NotImplementedException();
-    }
+//       // while ( dataReader.Read() ) {
+//       //   fase = new Fase{
+//       //     id = int.Parse(dataReader["id"].ToString()),
+//       //     nome = dataReader["nome"].ToString()
+//       //   };
+//       // }
 
-    throw new NotImplementedException();
-  }
+//     } catch {
+//       throw new NotImplementedException();
+//     }
+
+//     throw new NotImplementedException();
+//   }
 }
