@@ -1,32 +1,41 @@
 namespace dotnet_mvc.Repository;
 
-public class ApontamentoRepository {
+public class ApontamentoRepository : IApontamentoRepository {
 
-  private readonly Connection _dBConnection;
-  public ApontamentoRepository(Connection dBConnection) {
+  public readonly IDbConnection _dBConnection;
+  public ApontamentoRepository(
+    IDbConnection dBConnection
+  ) {
     _dBConnection = dBConnection;
   }
 
-  public Task<IActionResult> ReadAllApontamento( ) {
-    SqlConnection conn = _dBConnection.Execultar();
-    Fase fase = new();
+  public async Task<Fase> ReadAllApontamento( ) {
+    NpgsqlConnection conn = _dBConnection.Execultar();
 
     try {
-      string selectQuery = "SELECT * FROM fase;";
+      string selectQuery = "SELECT * FROM fase";
 
-      SqlCommand command = new(selectQuery, conn);
-      SqlDataReader dataReader = command.ExecuteReader();
+      NpgsqlCommand command = new(selectQuery, conn);
+      NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
-      while ( dataReader.Read() ) {
-        fase = new Fase{
-          id = int.Parse(dataReader["id"].ToString()),
-          nome = dataReader["nome"].ToString()
-        };
+      while (await reader.ReadAsync()) {
+        Fase fase = ReadFase(reader);
+        return fase;
       }
     } catch {
       throw new NotImplementedException();
     }
-
     throw new NotImplementedException();
+  }
+
+  private static Fase ReadFase(NpgsqlDataReader reader) {
+    int? id = reader["id"] as int?;
+    string? nome = reader["nome"] as string;
+
+    Fase fase = new Fase {
+      id = id!.Value,
+      nome = nome!,
+    };
+    return fase;
   }
 }

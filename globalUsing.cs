@@ -11,5 +11,6 @@
 // Para injeção de dependencias
   global using dotnet_mvc.Models;
   global using dotnet_mvc.Repository.Interfaces;
-    global using dotnet_mvc.Repository;
+  global using dotnet_mvc.Repository;
   global using dotnet_mvc.Data;
+  global using  dotnet_mvc.Data.Interfaces;
