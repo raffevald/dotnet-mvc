@@ -1,40 +1,41 @@
-using dotnet_mvc.Repository.Interfaces;
-using Dapper;
-
 namespace dotnet_mvc.Repository;
 
 public class ApontamentoRepository : IApontamentoRepository {
 
-  // private readonly Dbconnection _dBConnection;
-  // string ConnectionString = "Server=127.0.0.1; Port=7000; User Id=postgres; Password=Raff-Nami-2078; Database=dotnet-mvc;";
-  // public ApontamentoRepository(Dbconnection dBConnection) {
-  //   _dBConnection = dBConnection;
+  public readonly IDbConnection _dBConnection;
+  public ApontamentoRepository(
+    IDbConnection dBConnection
+  ) {
+    _dBConnection = dBConnection;
+  }
+
+  // public async Task<Fase> ReadAllApontamento( ) {
+  //   NpgsqlConnection conn = _dBConnection.Execultar();
+
+  //   try {
+  //     string selectQuery = "SELECT * FROM fase";
+
+  //     NpgsqlCommand command = new(selectQuery, conn);
+  //     NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+  //     while (await reader.ReadAsync()) {
+  //       Fase fase = ReadFase(reader);
+  //       return fase;
+  //     }
+  //   } catch {
+  //     throw new NotImplementedException();
+  //   }
+  //   throw new NotImplementedException();
   // }
 
-  MySql.Data.MySqlClient.MySqlConnection conn;
-  string ConnectionString = "server=127.0.0.1:3306; uid=root;" + "pwd=root; database=dotnet-mvc";
+  // private static Fase ReadFase(NpgsqlDataReader reader) {
+  //   int? id = reader["id"] as int?;
+  //   string? nome = reader["nome"] as string;
 
-
-  public Task<IActionResult> ReadAllApontamento(Apontamento apontamento) {
-    // IDbConnetion Conn;
-    // NpgsqlConnection Conn;
-  
-    try {
-      string selectQuery = "SELECT * FROM fase;";
-      // Conn = new NpgsqlConnection(ConnectionString);
-      // Conn.Open();
-      // var dados = Conn.Execute(selectQuery, apontamento);
-      // return dados;
-
-      conn = new MySql.Data.MySqlClient.MySqlConnection();
-      conn.ConnectionString = ConnectionString;
-      conn.Open();
-      var dados =  conn.Execute(selectQuery);
-      
-    } catch {
-      throw new NotImplementedException();
-    }
-
-    throw new NotImplementedException();
-  }
+  //   Fase fase = new Fase {
+  //     id = id!.Value,
+  //     nome = nome!,
+  //   };
+  //   return fase;
+  // }
 }
