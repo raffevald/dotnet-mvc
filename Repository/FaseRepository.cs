@@ -12,6 +12,8 @@ public class FaseRepository : IFaseRepository {
   public async Task<IEnumerable<Fase>> GetAllFases( ) {
     NpgsqlConnection conn = _dBConnection.Execultar();
 
+    List<Fase> dbFases = new List<Fase>();
+
     try {
       string selectQuery = "SELECT * FROM fase";
 
@@ -19,23 +21,31 @@ public class FaseRepository : IFaseRepository {
       NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
       while (await reader.ReadAsync()) {
-        Fase fase = ReadFase(reader);
-        return (IEnumerable<Fase>)fase;
+        int? id = reader["id"] as int?;
+        string? nome = reader["nome"] as string;
+
+        Fase fase = new Fase(
+          id,
+          nome
+        );
+
+        dbFases.Add(fase);
       }
     } catch {
       throw new NotImplementedException();
     }
-    throw new NotImplementedException();
+
+    return dbFases;
   }
 
-  private static Fase ReadFase(NpgsqlDataReader reader) {
-    int? id = reader["id"] as int?;
-    string? nome = reader["nome"] as string;
+  // private static Fase ReadFase(NpgsqlDataReader reader) {
+  //   int? id = reader["id"] as int?;
+  //   string? nome = reader["nome"] as string;
 
-    Fase fase = new Fase {
-      id = id!.Value,
-      nome = nome!,
-    };
-    return fase;
-  }
+  //   Fase fase = new Fase {
+  //     id = id!.Value,
+  //     nome = nome!,
+  //   };
+  //   return fase;
+  // }
 }

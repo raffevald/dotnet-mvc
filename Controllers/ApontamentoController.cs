@@ -3,19 +3,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace dotnet_mvc.Controllers;
 
 public class ApontamentoController : Controller {
-  // private readonly ILogger<ApontamentoController> _logger;
+
   private readonly IFaseRepository _fase;
   private readonly IApontamentoRepository _apotamentos;
 
   public ApontamentoController(
-    // ILogger<ApontamentoController> logger,
     IFaseRepository fase,
     IApontamentoRepository apotamento
   ) {
-    // _logger = logger;
     _fase = fase;
     _apotamentos = apotamento;
   }
+
 
   [NonAction]
   public void LoadingFases() {
@@ -38,37 +37,17 @@ public class ApontamentoController : Controller {
     ViewBag.ScheduleNotes = scheduleNotes;
   }
 
-  // [NonAction]
-  // public void CarregarApontamentos(int id, int streamId, int atividadeId, int faseId, int horas, string observacoes) {
-  //   IEnumerable<Apontamento> apontamentos = _apontamentoServico.Buscar(id);
-  //   ViewBag.Apontamentos = apontamentos;
-  // }
 
-  // private Fase GetFases() {
-  //   // var dbUserRoles = new DbUserRoles();
-  //   // var dbFases = _fase.GetAllFases();
-  //   var dbFases = new Fase();
-  //   var fases = dbFases
-  //   _fase.GetAllFases()
-  //     .Select(x =>
-  //       new SelectListItem {
-  //           Value = x.UserRoleId.ToString(),
-  //           Text = x.UserRole
-  //         });
+  [NonAction]
+  public async void CarregarFases() {
+    var dbFases = await _fase.GetAllFases();
 
-  //   // return new SelectList(roles, "Value", "Text");
-  //   return fases;
-  // }
+    ViewBag.Fases = dbFases;
+  }
 
-  public IActionResult Index() {
-    // var data = _apotamentos.ReadAllApontamento();
-    var fase = _fase.GetAllFases();
-    // ViewBag.Fases = _fase.GetAllFases();
-    // ViewData["Fases"] = new Microsoft.AspNetCore.Mvc.Rendering.SelectList((System.Collections.IEnumerable)fase, "id", "nome" );
-    // List<SelectListItem
-    // items = new List<SelectListItem>();
-    // items.Add(new SelectListItem { Text = "Action", Value = "0"});
-    // ViewBag.Fase = GetFases().Select(c => new SelectListItem() { Text = c.id.ToString(), Value = c.nome}).ToList();
+  public IActionResult Index ( ) {
+    UploadScheduleNotes();
+    CarregarFases();
 
     return View();
   }
@@ -77,23 +56,6 @@ public class ApontamentoController : Controller {
   public IActionResult Error() {
     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
   }
-
-  // public static List<Fase> GetFases() {
-  //   var fases = new List<Fase>() {
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"},
-  //     new Fase(){ id=1, nome="Teste"}
-  //   };
-  //   return fases;
-  // }
 
   // [HttpPost]
   // public IActionResult Adicionar(Apontamento apontamento) {
