@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<IDbConnection, Connection>();
 
 // Injeção de dependecias
+    builder.Services.AddScoped<IStreamRepository, StreamRepository>();
+    builder.Services.AddScoped<IAtividadesRepository, AtividadesRepository>();
     builder.Services.AddScoped<IFaseRepository, FaseRepository>();
     builder.Services.AddScoped<IApontamentoRepository, ApontamentoRepository>();
 

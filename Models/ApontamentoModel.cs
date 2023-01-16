@@ -9,18 +9,20 @@ public class Apontamento {
   [Column("id")]
   public int? id { get; set; }
 
-  [Display(Name ="Data")]
+  // [Display(Name ="Data")]
   public DateTime? data { get; set; }
 
-  public string? stream { get; set; }
+  // public string? stream { get; set; }
+  public int? SelectedStreamId { get; set; }
+  
 
   [Display(Name ="Atividades")]
-  public string? atividades { get; set; }
+  public int? SelectedAtividadesId { get; set; }
 
-  [Required]
-  [Display(Name = "Fases")]
+  // [Required]
+  // [Display(Name = "Fases")]
   public int? SelectedFaseId { get; set; }
-  public Fase? Fases { get; set; }
+  // public Fase? Fases { get; set; }
 
   public string? horasTrabalhada { get; set; }
   public string? observacao { get; set; }
