@@ -1,5 +1,5 @@
-// namespace dotnet_mvc.Repository.Interfaces;
+namespace dotnet_mvc.Repository.Interfaces;
 
-// public interface IFaseRepository {
-//   Task<IEnumerable<Fase>> GetAllFases();
-// }
+public interface IFaseRepository {
+  Task<IEnumerable<Fase>> GetAllFases();
+}
