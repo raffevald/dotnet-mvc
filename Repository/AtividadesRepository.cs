@@ -1,4 +1,4 @@
-
+namespace dotnet_mvc.Repository;
 
 public class AtividadesRepository : IAtividadesRepository {
   public readonly IDbConnection _dBConnection;
