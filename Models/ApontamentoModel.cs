@@ -10,13 +10,13 @@ public class Apontamento {
   public int? id { get; set; }
 
   // [Display(Name ="Data")]
-  public DateTime? data { get; set; }
+  public string? data { get; set; }
 
   // public string? stream { get; set; }
   public int? SelectedStreamId { get; set; }
   
 
-  [Display(Name ="Atividades")]
+  // [Display(Name ="Atividades")]
   public int? SelectedAtividadesId { get; set; }
 
   // [Required]
@@ -24,7 +24,7 @@ public class Apontamento {
   public int? SelectedFaseId { get; set; }
   // public Fase? Fases { get; set; }
 
-  public string? horasTrabalhada { get; set; }
+  public int? horasTrabalhada { get; set; }
   public string? observacao { get; set; }
 
 }

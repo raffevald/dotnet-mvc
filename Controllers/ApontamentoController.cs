@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
+using dotnet_mvc.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dotnet_mvc.Controllers;
 
@@ -43,7 +44,6 @@ public class ApontamentoController : Controller {
     ViewBag.ScheduleNotes = scheduleNotes;
   }
 
-
   [NonAction]
   public async void CarregarFases() {
     var dbFases = await _fase.GetAllFases();
@@ -73,20 +73,20 @@ public class ApontamentoController : Controller {
     return View();
   }
 
-  [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-  public IActionResult Error() {
-    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-  }
-
-  // [HttpPost]
-  // public IActionResult Adicionar(Apontamento apontamento) {
-  //   try {
-  //     _apontamentoServico.Adicionar(apontamento);
-  //     TempData["MensagemSucesso"] = "Apontamento realizado com sucesso";
-  //     return RedirectToAction("Adicionar");
-  //   } catch (Exception e) {
-  //       TempData["MensagemErro"] = $"Não foi possível realizar o apontamento. Detalhe do erro: {e.Message}";
-  //       return RedirectToAction("Index");
-  //   }
+  // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+  // public IActionResult Error() {
+  //   return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
   // }
+
+  [HttpPost("apotamento/gravarDados")]
+  // [AllowAnonymous]
+  public IActionResult Adicionar( [FromBody] Apontamento apontamento) {
+    try {
+      _apotamentos.InsertApotamento(apontamento);
+
+      return Ok( new { mensagem = "Apotamento inserido com sucesso." });
+    } catch {
+      throw new NotImplementedException();
+    }
+  }
 }

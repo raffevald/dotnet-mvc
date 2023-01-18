@@ -9,33 +9,30 @@ public class ApontamentoRepository : IApontamentoRepository {
     _dBConnection = dBConnection;
   }
 
-  // public async Task<Fase> ReadAllApontamento( ) {
-  //   NpgsqlConnection conn = _dBConnection.Execultar();
+  public Apontamento InsertApotamento(Apontamento apontamento) {
+    NpgsqlConnection conn = _dBConnection.Execultar();
 
-  //   try {
-  //     string selectQuery = "SELECT * FROM fase";
+    try {
+      string insertQuery = $"INSERT INTO apontamentos( data_atividade, horastrabalhada, observacao, fk_atividades, fk_stream, fk_fase ) VALUES ('{apontamento.data}', {apontamento.horasTrabalhada}, '{apontamento.observacao}', {apontamento.SelectedAtividadesId}, {apontamento.SelectedStreamId}, {apontamento.SelectedFaseId})";
+      
+      NpgsqlCommand command = new(insertQuery, conn);
+      // // NpgsqlDataReader reader = command.ExecuteReader();
+      command.ExecuteNonQuery();
+      // var cmd = new NpgsqlCommand("INSERT INTO public.apontamentos( data_atividade, horastrabalhada, observacao, fk_atividades, fk_stream, fk_fase) VALUES (@p1), (@p2), (@p3), (@p4), (@p5), (@p6)", conn) {
+      //     Parameters = {
+      //     new("p1", apontamento.data),
+      //     new("p2", apontamento.horasTrabalhada),
+      //     new("p3", apontamento.observacao),
+      //     new("p4", apontamento.SelectedAtividadesId),
+      //     new("p5", apontamento.SelectedStreamId),
+      //     new("p6", apontamento.SelectedFaseId )
+      //   }
+      // };
+      // cmd.ExecuteNonQuery();
 
-  //     NpgsqlCommand command = new(selectQuery, conn);
-  //     NpgsqlDataReader reader = await command.ExecuteReaderAsync();
-
-  //     while (await reader.ReadAsync()) {
-  //       Fase fase = ReadFase(reader);
-  //       return fase;
-  //     }
-  //   } catch {
-  //     throw new NotImplementedException();
-  //   }
-  //   throw new NotImplementedException();
-  // }
-
-  // private static Fase ReadFase(NpgsqlDataReader reader) {
-  //   int? id = reader["id"] as int?;
-  //   string? nome = reader["nome"] as string;
-
-  //   Fase fase = new Fase {
-  //     id = id!.Value,
-  //     nome = nome!,
-  //   };
-  //   return fase;
-  // }
+      return apontamento;
+    } catch {
+      throw new NotImplementedException();
+    }
+  }
 }
