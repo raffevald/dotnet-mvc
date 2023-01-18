@@ -17,6 +17,28 @@
       });
     }
 
+    var hmtlModal = `
+      <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Título do modal</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Texto do corpo do modal, é aqui.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary">Salvar mudanças</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
     const postDataForApontamento = () => {
       var data = document.getElementById('inputData').value;
       var stream = document.getElementById('selectStream').value;
@@ -24,42 +46,39 @@
       var fase = document.getElementById('selectFase').value;
       var horasParaAtividade = document.getElementById('selectHorasTrabalhadas').value;
       var Obeservação = document.getElementById('inputObservacao').value;
-      
-      @* let data_formata = `${data[0]}${data[1]}${data[2]}${data[3]}`;
-      console.log(data_formata); *@
 
-      console.log('Data: ', data);
-      console.log('Stream: ', stream);
-      console.log('Atividade: ', atividadesByStream);
-      console.log('Fase: ', fase);
-      console.log('Horas trabalhadas: ', horasParaAtividade);
-      console.log('Obeservações: ', Obeservação);
-
-      var apontamento = {
-        apontamento: {
-          data: data,
-          SelectedStreamId: stream,
-          SelectedAtividadesId: atividadesByStream,
-          SelectedFaseId: fase,
-          horasTrabalhada: horasParaAtividade,
-          observacao: Obeservação
+      if ( data !== "" && stream !== "" && atividadesByStream !== "" && fase !== "" && horasParaAtividade !== "" ) {
+        var apontamento = {
+          apontamento: {
+            data: data,
+            SelectedStreamId: stream,
+            SelectedAtividadesId: atividadesByStream,
+            SelectedFaseId: fase,
+            horasTrabalhada: horasParaAtividade,
+            observacao: Obeservação
+          }
         }
-      }
 
-      $.ajax({  
-        url: "/apotamento/gravarDados",
-        type: 'POST',
-        dataType: "json",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify( apontamento.apontamento )
-      });
+        $.ajax({  
+          url: "/apotamento/gravarDados",
+          type: 'POST',
+          dataType: "json",
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify( apontamento.apontamento )
+        });
+
+        alert("Apotamento inserido com sucesso.");
+        
+      } else {
+        alert("Favor preencher todos os campos.");
+      }
 
     }
   </script>
 }
 
 
-<div class="form-container">
+<div class="form-container" id="containerBody">
   @* <form method="POST"> *@
     <div class="form-group">
       <label for="inputData">Data: </label>
@@ -83,7 +102,7 @@
     <div class="form-group componetAtividadesByStream">
       <label for="inputAtividades">Selecione a atividades: </label>
       <select asp-for="@Model.SelectedAtividadesId" id="componetAtividadesByStream" class="form-control">
-        <option value="0">Sem atividades cadastradas</option>
+        <option value="">Sem atividades cadastradas</option>
       </select>
     </div>
 
