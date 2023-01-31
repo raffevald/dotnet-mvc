@@ -6,40 +6,136 @@
 
 @section Scripts {
   <script>
-    $(document).ready( function () {
-      $('#myTable').DataTable();
-    } );
+    const table = () => {
+      $(document).ready( function () {
+        $('#myTable').DataTable();
+      } );
+    }
 
     const fetchDataApontamento = () => {
       var dataInicio = document.getElementById('inputDataInicio').value;
       var dataFim = document.getElementById('inputDataFim').value;
 
       if ( dataInicio !== "" && dataFim !== "") {
-        console.log('Data inicio: ', dataInicio)
-        console.log('Da fim: ', dataFim)
         var filtros = {
           dataInicio: dataInicio,
           dataFim: dataFim
         }
-        console.log(filtros);
+
         if ( dataInicio < dataFim ) {
+
           $.ajax({  
             url: "/apotamento/listagem",
             type: 'POST',
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(filtros)
+            data: JSON.stringify(filtros),
+            success: function(json) {
+              var htmlTableBody = "";
+              $.each(json, function(key, value){
+                value?.map(item => {
+                  htmlTableBody += `
+                  <tr>
+                    <td class="table-body-align-center">
+                      ${item?.dataapotamento[0]}${item?.dataapotamento[1]}${item?.dataapotamento[2]}${item?.dataapotamento[3]}${item?.dataapotamento[4]}${item?.dataapotamento[5]}${item?.dataapotamento[6]}${item?.dataapotamento[7]}${item?.dataapotamento[8]}${item?.dataapotamento[9]}
+                    </td>
+                    <td class="table-body-align-center">
+                      ${item?.atividade}
+                    </td>
+                    <td class="table-body-align-center">
+                      ${item?.fase}
+                    </td>
+                    <td class="table-body-align-center">
+                      0${item?.horastrabalhada}:00
+                    </td>
+                    <td class="table-body-align-center"> ${item?.observacao} </td>
+                    <td class="table-body-align-center">
+                      <button type="submit" class="btn btn-danger " onclick="deleteApontamento(${item?.id})">Apagar</button>
+                    </td>
+                  </tr>
+                `;
+
+                table();
+                });
+              });
+              $("#tableApontamentoBody").html(htmlTableBody);
+            }
           });
+
         }
       } else {
         alert("Favor preencher o campo da inicio e data fim");
       }
     }
 
+    const fetchApontamentoPrimeraPesquisa = (dataInicio, dataFim) => {
+      var filtros = {
+        dataInicio: dataInicio,
+        dataFim: dataFim
+      }
 
-    const deleteApontamento = (idApotamento) => {
-      console.log('Apotamento a ser apagado: ', idApotamento)
+      $.ajax({  
+        url: "/apotamento/listagem",
+        type: 'POST',
+        dataType: "json",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(filtros),
+        success: function(json) {
+          var htmlTableBody = "";
+          $.each(json, function(key, value){
+            value?.map(item => {
+              htmlTableBody += `
+              <tr>
+                <td class="table-body-align-center">
+                  ${item?.dataapotamento[0]}${item?.dataapotamento[1]}${item?.dataapotamento[2]}${item?.dataapotamento[3]}${item?.dataapotamento[4]}${item?.dataapotamento[5]}${item?.dataapotamento[6]}${item?.dataapotamento[7]}${item?.dataapotamento[8]}${item?.dataapotamento[9]}
+                </td>
+                <td class="table-body-align-center">
+                  ${item?.atividade}
+                </td>
+                <td class="table-body-align-center">
+                  ${item?.fase}
+                </td>
+                <td class="table-body-align-center">
+                  0${item?.horastrabalhada}:00
+                </td>
+                <td class="table-body-align-center"> ${item?.observacao} </td>
+                <td class="table-body-align-center">
+                  <button type="submit" data-bs-toggle="modal" data-bs-target="#modalExcluirApontamento" class="btn btn-danger" onclick="deleteApontamento(${item?.id})">Apagar</button>
+                </td>
+              </tr>
+            `;
+
+            table();
+            });
+          });
+          $("#tableApontamentoBody").html(htmlTableBody);
+        }
+      });
     }
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    dataInicioPesquisa = ano + '-' + mes + '-' + 1;
+    dataFimPesquisa = ano + '-' + mes + '-' + dia;
+    fetchApontamentoPrimeraPesquisa(dataInicioPesquisa, dataFimPesquisa);
+
+
+    let codigoExclusão;
+    let codigoDoApotamentoASerExcluido;
+    const desejaRealmenteExcluir = ( codigo ) => {
+      console.log(codigo)
+      if ( codigo === 1) {
+        codigoExclusão = 1;
+        console.log('Apotamento a ser excluido: ', codigoDoApotamentoASerExcluido)
+      } else {
+        codigoExclusão = 0
+      }
+    }
+    const deleteApontamento = ( idApotamento ) => {
+      codigoDoApotamentoASerExcluido = idApotamento;
+    }
+
   </script>
 }
 
@@ -131,47 +227,7 @@
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="postDataForApontamento()">Apagar</button>
-            </td>
-          </tr>
-
+        <tbody id="tableApontamentoBody">
           <tr>
             @* <th scope="row">1</th> *@
             <td class="table-body-align-center">
@@ -252,145 +308,6 @@
             </td>
           </tr>
 
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
-
-          <tr>
-            @* <th scope="row">1</th> *@
-            <td class="table-body-align-center">
-              2022-01-31
-            </td>
-            <td class="table-body-align-center">
-              POC
-            </td>
-            <td class="table-body-align-center">
-              CURSO
-            </td>
-            <td class="table-body-align-center">
-              04:00
-            </td>
-            <td class="table-body-align-center"> </td>
-            <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
-            </td>
-          </tr>
         </tbody>
       </table>
 
@@ -398,4 +315,22 @@
 
     @* <button type="submit" class="btn btn-primary" onclick="postDataForApontamento()">Cadastrar apontamento</button> *@
   @* </form> *@
+</div>
+
+<div class="modal fade" id="modalExcluirApontamento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deletar Apontamento</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Você realmente deseja deletar esse apontamento?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="desejaRealmenteExcluir( 0 )" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary" onclick="desejaRealmenteExcluir( 1 )" >Sim</button>
+      </div>
+    </div>
+  </div>
 </div>
