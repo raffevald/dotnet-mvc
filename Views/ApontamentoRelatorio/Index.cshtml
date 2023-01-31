@@ -1,0 +1,152 @@
+@* @model dotnet_mvc.Models.Apontamento
+
+@{
+  ViewData["Title"] = "Apontamentos";
+} *@
+
+@section Scripts {
+  <script>
+    const fetchDataApontamento = () => {
+      var dataInicio = document.getElementById('inputDataInicio').value;
+      var dataFim = document.getElementById('inputDataFim').value;
+
+
+      if ( dataInicio !== "" && dataFim !== "") {
+        console.log('Data inicio: ', dataInicio)
+        console.log('Da fim: ', dataFim)
+        
+      } else {
+        alert("Favor preencher todos os campos.");
+      }
+
+    }
+  </script>
+}
+
+<style>
+  .data-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-data-container {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 1%;
+  }
+
+  .input-data-padrao {
+    width: 400px;
+  }
+
+  .button-padrao {
+    @* margin-top: 1%; *@
+    width: 200px;
+  }
+
+  .button-padrao-posicao {
+    margin: 0 0 0 auto;
+  }
+
+  .table-header-align {
+    text-align: center;
+  }
+  .table-body-align-center {
+    text-align: center;
+  }
+</style>
+
+<div class="form-container" id="containerBody">
+  @* <form method="POST"> *@
+    <div class="data-container" >
+      <div class="form-data-container">
+        <div class="form-group">
+          <label for="inputData">Data Inicio </label>
+          <input type="date" class="form-control input-data-padrao" id="inputDataInicio" placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="inputData">Data Fim </label>
+          <input type="date" class="form-control input-data-padrao" id="inputDataFim" placeholder="">
+        </div>
+      </div>
+      <div class="button-padrao-posicao">
+        <button type="submit" class="btn btn-primary button-padrao " onclick="fetchDataApontamento()">Consultar</button>
+        <button type="submit" class="btn btn-secondary button-padrao " onclick="postDataForApontamento()">Exportar</button>
+      </div>
+    </div>
+
+    <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" class="table-header-align">
+              Data
+            </th>
+            <th scope="col" class="table-header-align">
+              Atividade
+            </th>
+            <th scope="col" class="table-header-align">
+              Fase
+            </th>
+            <th scope="col" class="table-header-align">
+              Horas trabalhada
+            </th>
+            <th scope="col" class="table-header-align">
+              Observação
+            </th>
+            <th scope="col" class="table-header-align">
+              Ação
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="postDataForApontamento()">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">1</th>
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="postDataForApontamento()">Apagar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    @* <button type="submit" class="btn btn-primary" onclick="postDataForApontamento()">Cadastrar apontamento</button> *@
+  @* </form> *@
+</div>
