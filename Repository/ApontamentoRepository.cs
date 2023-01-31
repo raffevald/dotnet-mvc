@@ -52,11 +52,21 @@ public class ApontamentoRepository : IApontamentoRepository {
 
       while (await reader.ReadAsync()) {
         int? id = reader["id"] as int?;
-        string? dataapotamento = reader["nome"] as string;
+        DateTime? dataapotamento = reader["dataapotamento"] as DateTime?;
+        string? observacao = reader["observacao"] as string;
+        int? horastrabalhada = reader["horastrabalhada"] as int?;
+        string? stream = reader["stream"] as string;
+        string? fase = reader["fase"] as string;
+        string? atividade = reader["atividade"] as string;
 
         ApotamentoReadDto apontamento = new ApotamentoReadDto(
           id,
-          dataapotamento
+          dataapotamento,
+          observacao,
+          horastrabalhada,
+          stream,
+          fase,
+          atividade
         );
 
         dbApontamentos.Add(apontamento);

@@ -15,13 +15,24 @@ public class ApontamentoCreateDto {
 public class ApotamentoReadDto {
   public ApotamentoReadDto(
     int? _id,
-    string? _dataapotamento
+    DateTime? _dataapotamento,
+    string? _observacao,
+    int? _horastrabalhada,
+    string? _stream,
+    string? _fase,
+    string? _atividade
   ) {
     id = _id;
     dataapotamento = _dataapotamento;
+    observacao = _observacao;
+    horastrabalhada = _horastrabalhada;
+    stream = _stream;
+    fase = _fase;
+    atividade = _atividade;
   }
+
   public int? id { get; set;}
-  public string? dataapotamento { get; set; }
+  public DateTime? dataapotamento { get; set; }
   public string? observacao { get; set; }
   public int? horastrabalhada { get; set; }
   public string? stream { get; set; }

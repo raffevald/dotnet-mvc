@@ -17,15 +17,25 @@
       if ( dataInicio !== "" && dataFim !== "") {
         console.log('Data inicio: ', dataInicio)
         console.log('Da fim: ', dataFim)
-
-        if ( dataInicio > dataFim ) {
-          console.log("Teste da inicio maior que data fim")
+        var filtros = {
+          dataInicio: dataInicio,
+          dataFim: dataFim
+        }
+        console.log(filtros);
+        if ( dataInicio < dataFim ) {
+          $.ajax({  
+            url: "/apotamento/listagem",
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(filtros)
+          });
         }
       } else {
         alert("Favor preencher o campo da inicio e data fim");
       }
-
     }
+
 
     const deleteApontamento = (idApotamento) => {
       console.log('Apotamento a ser apagado: ', idApotamento)
