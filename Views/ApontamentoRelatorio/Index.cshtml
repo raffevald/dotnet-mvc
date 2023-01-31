@@ -6,19 +6,29 @@
 
 @section Scripts {
   <script>
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+    } );
+
     const fetchDataApontamento = () => {
       var dataInicio = document.getElementById('inputDataInicio').value;
       var dataFim = document.getElementById('inputDataFim').value;
 
-
       if ( dataInicio !== "" && dataFim !== "") {
         console.log('Data inicio: ', dataInicio)
         console.log('Da fim: ', dataFim)
-        
+
+        if ( dataInicio > dataFim ) {
+          console.log("Teste da inicio maior que data fim")
+        }
       } else {
-        alert("Favor preencher todos os campos.");
+        alert("Favor preencher o campo da inicio e data fim");
       }
 
+    }
+
+    const deleteApontamento = (idApotamento) => {
+      console.log('Apotamento a ser apagado: ', idApotamento)
     }
   </script>
 }
@@ -49,11 +59,20 @@
     margin: 0 0 0 auto;
   }
 
-  .table-header-align {
+  .table-container {
+    margin-top: 2%;
+  }
+
+  @* .table-header-align {
     text-align: center;
   }
+
   .table-body-align-center {
     text-align: center;
+  } *@
+
+  .dataTables_filter {
+    display: none;
   }
 </style>
 
@@ -76,11 +95,11 @@
       </div>
     </div>
 
-    <div>
-      <table class="table">
+    <div class="table-container">
+      <table id="myTable" class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            @* <th scope="col">#</th> *@
             <th scope="col" class="table-header-align">
               Data
             </th>
@@ -104,7 +123,27 @@
 
         <tbody>
           <tr>
-            <th scope="row">1</th>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
             <td class="table-body-align-center">
               2022-01-31
             </td>
@@ -124,7 +163,7 @@
           </tr>
 
           <tr>
-            <th scope="row">1</th>
+            @* <th scope="row">1</th> *@
             <td class="table-body-align-center">
               2022-01-31
             </td>
@@ -139,7 +178,207 @@
             </td>
             <td class="table-body-align-center"> </td>
             <td class="table-body-align-center">
-              <button type="submit" class="btn btn-danger " onclick="postDataForApontamento()">Apagar</button>
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
+            </td>
+          </tr>
+
+          <tr>
+            @* <th scope="row">1</th> *@
+            <td class="table-body-align-center">
+              2022-01-31
+            </td>
+            <td class="table-body-align-center">
+              POC
+            </td>
+            <td class="table-body-align-center">
+              CURSO
+            </td>
+            <td class="table-body-align-center">
+              04:00
+            </td>
+            <td class="table-body-align-center"> </td>
+            <td class="table-body-align-center">
+              <button type="submit" class="btn btn-danger " onclick="deleteApontamento(1)">Apagar</button>
             </td>
           </tr>
         </tbody>
